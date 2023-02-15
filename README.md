@@ -1,5 +1,5 @@
-# General Maven Library Template
-Modelo padrão para criação de bibliotecas Java (Maven)
+# Maven Secret Manager Suite
+Biblioteca para recuperação de secrets da AWS ou GCP.
 
 ## Tópicos
 - [Instalação com Maven](#instalação-com-maven)
