@@ -23,7 +23,7 @@ public class Suite {
     @Value("${app.suite:#{null}}")
     String appSuite;
 
-    DefaultSuite get() {
+    public DefaultSuite get() {
         String provider = Optional.ofNullable(System.getenv("APP_SUITE")).orElse(appSuite).toUpperCase();
 
         switch(DefaultAppSuitesEnum.valueOf(provider)) {
