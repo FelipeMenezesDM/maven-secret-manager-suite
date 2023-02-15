@@ -4,6 +4,9 @@ Modelo padrão para criação de bibliotecas Java (Maven)
 ## Tópicos
 - [Instalação com Maven](#instalação-com-maven)
 - [Deploy manual](#deploy-manual)
+- [Configuração](#configuração)
+  - [Variáveis de ambiente](#variáveis-de-ambiente)
+  - [Propriedades da aplicação](#propriedades-da-aplicação)
 
 ## Instalação com Maven
 Crie o arquivo de configuração do maven ou inclua o repositório e o servidor no arquivo já existente:
@@ -26,7 +29,7 @@ Crie o arquivo de configuração do maven ou inclua o repositório e o servidor 
         </repository>
         <repository>
           <id>github</id>
-          <url>https://maven.pkg.github.com/felipemenezesdm/general-maven-library-template</url>
+          <url>https://maven.pkg.github.com/felipemenezesdm/maven-secret-manager-suite</url>
           <snapshots>
             <enabled>true</enabled>
           </snapshots>
@@ -49,7 +52,7 @@ Inclua a dependência no arquivo pom:
 ```xml
 <dependency>
   <groupId>br.com.felipemenezesdm</groupId>
-  <artifactId>general-maven-library-template</artifactId>
+  <artifactId>maven-secret-manager-suite</artifactId>
   <version>1.0.0</version>
 </dependency>
 ```
@@ -64,3 +67,57 @@ O deploy da biblioteca é realizado automaticamente sempre que houver a criaçã
 ```
 mvn deploy -s settings.xml -Drepo.usrnm="$username" -Drepo.pswd="$password"
 ```
+
+## Uso
+Para usar a biblioteca de recuperação de secrets, é necessário injectar o service _@Suite_ na classe. Abaixo, um exemplo de uso:
+
+```java
+import br.com.felipemenezesdm.Suite;
+
+@RestController
+@RequestMapping("/api")
+public class MyController {
+    @Autowired
+    Suite suite;
+
+    @GetMapping("/get-secret")
+    public String getSecret() {
+        return suite.get().getSecretData("my-secret");
+    }
+}
+```
+
+## Configuração
+É possível configurar a biblioteca usando variáveis de ambiente do sistema ou propriedades da aplicação.
+
+### Variáveis de ambiente
+| Name                           | Valor padrão       | Example                                                                          |
+|--------------------------------|--------------------|----------------------------------------------------------------------------------|
+| APP_SUITE                      | gcp, aws ou vazio  | Definição do suite para recuperação de secrets                                   |
+| AWS_ACCOUNT_ID                 | 000000000000       | Definir a ID da conta AWS para a aplicação                                       |
+| AWS_ENDPOINT                   | http:\/\/127.0.0.1 | Definir o endpoint dos serviços AWS (indicado quando houver o uso do localstack) |
+| AWS_DEFAULT_REGION             | us-east-1          | Definir a região padrão para uma aplicação alocada na AWS                        |
+| GCP_PROJECT_ID                 | N/A                | ID do projeto no Google Cloud Plataform                                          |
+| GOOGLE_APPLICATION_CREDENTIALS | N/A                | Arquivo de credenciais do Google Cloud Platform                                  |
+
+### Propriedades da aplicação
+- **app:**
+  - **suite:**
+    - **tipo:** _string_
+    - **descrição:** definição do suite para recuperação de secrets. Atualmente disponíveis: aws, gcp e default
+    - **obrigatório:** sim
+  - **aws:**
+    - **region:**
+      - **tipo:** _string_
+      - **descrição:** exclusivo para o provedor **aws**, para identificar a região padrão do cliente.
+      - **obrigatório:** sim, quando o provedor for **aws**
+    - **end-point:**
+      - **tipo:** _string_
+      - **descrição:** quando o provedor for igual a **aws**, este parâmetro pode ser configurado para definir o endpoint de onde serão obtidas as credenciais. É bastante útil para quando se está utilizando o LocalStack, por exemplo.
+      - **obrigatório:** não
+  - **gcp:**
+    - **project-id**
+      - **tipo:** _string_
+      - **descrição:** exclusivo para o provedor **gcp**, para identificar o projeto do qual as credencials serão obtidas.
+      - **obrigatório:** sim, quando o provedor for **gcp**
+    
