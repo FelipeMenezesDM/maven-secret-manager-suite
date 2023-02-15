@@ -24,7 +24,7 @@ public class Suite {
     String appSuite;
 
     public DefaultSuite get() {
-        String provider = Optional.ofNullable(System.getenv("APP_SUITE")).orElse(appSuite).toUpperCase();
+        String provider = Optional.ofNullable(Optional.ofNullable(System.getenv("APP_SUITE")).orElse(Optional.ofNullable(System.getProperty("app.suite")).orElse(appSuite))).orElse("").toUpperCase();
 
         switch(DefaultAppSuitesEnum.valueOf(provider)) {
             case GCP :

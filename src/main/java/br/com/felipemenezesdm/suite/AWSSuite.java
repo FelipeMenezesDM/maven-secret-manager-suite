@@ -10,8 +10,8 @@ import java.util.Optional;
 @Service
 public class AWSSuite extends DefaultSuite {
     public String getSecretData(String secretName) {
-        String region = Optional.ofNullable(Optional.ofNullable(System.getenv("AWS_DEFAULT_REGION")).orElse(this.region)).orElse("us-east-1");
-        String endPoint = Optional.ofNullable(Optional.ofNullable(System.getenv("AWS_ENDPOINT")).orElse(this.endPoint)).orElse(String.format("//secretsmanager.%s.amazonaws.com", this.region));
+        String region = Optional.ofNullable(Optional.ofNullable(System.getenv("AWS_DEFAULT_REGION")).orElse(Optional.ofNullable(System.getProperty("app.aws.region")).orElse(this.region))).orElse("us-east-1");
+        String endPoint = Optional.ofNullable(Optional.ofNullable(System.getenv("AWS_ENDPOINT")).orElse(Optional.ofNullable(System.getProperty("app.aws.end-point")).orElse(this.endPoint))).orElse(String.format("//secretsmanager.%s.amazonaws.com", this.region));
         AWSSecretsManager client = AWSSecretsManagerClientBuilder.standard().withEndpointConfiguration(new AwsClientBuilder.EndpointConfiguration(endPoint, region)).build();
         GetSecretValueRequest getSecretValueRequest = new GetSecretValueRequest().withSecretId(secretName);
 
