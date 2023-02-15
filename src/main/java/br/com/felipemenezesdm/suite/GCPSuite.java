@@ -12,7 +12,7 @@ public class GCPSuite extends DefaultSuite {
     public String getSecretData(String secretName) {
         try {
             SecretManagerServiceClient client = SecretManagerServiceClient.create();
-            String projectId = Optional.ofNullable(System.getenv("GCP_PROJECT_ID")).orElse(this.projectId);
+            String projectId = Optional.ofNullable(System.getenv("GCP_PROJECT_ID")).orElse(Optional.ofNullable(System.getProperty("app.gcp.project-id")).orElse(this.projectId));
             SecretVersionName secretVersionName = SecretVersionName.of(projectId, secretName, "latest");
             AccessSecretVersionResponse response = client.accessSecretVersion(secretVersionName);
 
