@@ -1,4 +1,4 @@
-# Spring Secret Manager Suite
+# Spring Secret Manager Suite 
 Biblioteca para recuperação de secrets da AWS ou GCP.
 
 ## Tópicos
@@ -16,12 +16,12 @@ Crie o arquivo de configuração do maven ou inclua o repositório e o servidor 
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
 
   <activeProfiles>
-    <activeProfile>github</activeProfile>
+    <activeProfile>general</activeProfile>
   </activeProfiles>
 
   <profiles>
     <profile>
-      <id>github</id>
+      <id>general</id>
       <repositories>
         <repository>
           <id>central</id>
