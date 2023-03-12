@@ -27,7 +27,7 @@ Crie o arquivo de configuração do maven ou inclua o repositório e o servidor 
           <url>https://repo1.maven.org/maven2</url>
         </repository>
         <repository>
-          <id>spring-secret-manager-suite</id>
+          <id>github</id>
           <url>https://maven.pkg.github.com/felipemenezesdm/spring-secret-manager-suite</url>
         </repository>
       </repositories>

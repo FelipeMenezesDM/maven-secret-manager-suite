@@ -7,6 +7,8 @@
     <groupId>br.com.felipemenezesdm</groupId>
     <artifactId>spring-secret-manager-suite</artifactId>
     <version>1.0.0</version>
+    <url>https://github.com/felipemenezesdm/${project.artifactId}</url>
+    <description>Suite para recuperação de chaves a partir do Secret Manager da AWS ou GCP</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
