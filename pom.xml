@@ -17,8 +17,8 @@
     </parent>
 
     <properties>
-        <aws.secretsmanager.version>1.12.380</aws.secretsmanager.version>
-        <gcp.secretmanager.version>2.7.0</gcp.secretmanager.version>
+        <aws.secretsmanager.version>1.12.429</aws.secretsmanager.version>
+        <gcp.secretmanager.version>2.12.0</gcp.secretmanager.version>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -36,6 +36,10 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-cache</artifactId>
         </dependency>
         <dependency>
             <groupId>com.amazonaws</groupId>
